@@ -1,0 +1,12 @@
+version: '3'
+services:
+  solr:
+    image: solr
+    ports:
+      - 8983:8983
+    volumes:
+      - my_solr_volume:/var/solr/data
+    tty: true
+
+volumes:
+  my_solr_volume:
