@@ -1,12 +1,14 @@
 version: '3'
 services:
   solr:
-    image: solr:9.2.1
+    image: solr
     ports:
-      - 8983:8983
+      - "8983:8983"
     volumes:
-      - my_solr_volume:/var/solr/data
-    tty: true
-
+      - data:/var/solr
+    command:
+      - solr-precreate
+      - techproducts
+      - /opt/solr/server/solr/configsets/sample_techproducts_configs/conf
 volumes:
-  my_solr_volume:
+  data:

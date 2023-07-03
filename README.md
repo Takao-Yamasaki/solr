@@ -13,3 +13,8 @@ make exec
 ```
 http://localhost:8983/solr/#/
 ```
+
+- サンプルコアとデータの作成
+```
+bin/post -c techproducts example/exampledocs/*
+```
