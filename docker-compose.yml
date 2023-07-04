@@ -1,8 +1,8 @@
 version: '3'
 services:
   solr:
-    # 書籍だと、Solrのバージョンは6.3
-    image: solr:7.3.1
+    # Used in project solr:7.3.1
+    image: solr:6.3
     ports:
       - "8983:8983"
     volumes:
