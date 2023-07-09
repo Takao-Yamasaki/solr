@@ -2,7 +2,7 @@ version: '3'
 services:
   solr:
     # Used in project solr:7.3.1
-    image: solr:6.3
+    build: .
     ports:
       - "8983:8983"
     volumes:
