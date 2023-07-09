@@ -1,3 +1,2 @@
 FROM solr:6.3
-COPY sample-books.json /opt/solr/example/
-
+COPY solrbook_setup /opt/solr/server/solr/solrbook_setup
