@@ -1,9 +1,12 @@
+.PHONY: go solr
 up: # Start Solr
 	docker-compose up -d
 build: # Rebuild Solr
 	docker-compose up --build
-exec: # login Solr Container
+solr: # login Solr Container
 	docker-compose exec solr bash
+go: # login Solr Container
+	docker-compose exec go bash
 down: # Stop Solr
 	docker-compose down
 ps: # Status Check Solr Container

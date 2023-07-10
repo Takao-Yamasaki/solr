@@ -1,11 +1,19 @@
 version: '3'
 services:
+  go:
+    build: ./go
+    ports:
+      - "3000:3000"
+    tty: true
+    volumes:
+      - ./go:/go/src/workspace
+    working_dir: /go/src/workspace
   solr:
     # Used in project solr:7.3.1
-    build: .
+    build: ./solr
     ports:
       - "8983:8983"
     volumes:
-      - data:/var/solr
-volumes:
-  data:
+      - ./solr:/workspace:cashed
+# volumes:
+  # data:
