@@ -72,7 +72,21 @@ curl "http://localhost:8983/solr/admin/cores?action=RELOAD&core=solrbook"
 curl "http://localhost:8983/solr/solrbook/update?commit=true" --data-binary @sample-books.json -H 'Content-Type: application/json; charset=utf8' -T "sample-books.json" -X POST
 ```
 
-## インデックスの更新
+## 6.インデックスの更新
 ```
 curl "http://localhost:8983/solr/solrbook/update?commit=true" --data-binary @update.json -H 'Content-Type: application/json; charset=utf8' -T "update.json" -X POST
+```
+
+## 7.インデックスの削除
+```
+curl "http://localhost:8983/solr/solrbook/update?commit=true" --data-binary @delete.json -H 'Content-Type: application/json; charset=utf8' -T "delete.json" -X POST
+```
+
+## 8.コミットせずに登録
+```
+curl "http://localhost:8983/solr/solrbook/update" --data-binary @update.json -H 'Content-Type: application/json; charset=utf8' -T "update.json" -X POST
+```
+## 9.ロールバック
+```
+curl "http://localhost:8983/solr/solrbook/update?rollback=true"
 ```
