@@ -16,3 +16,5 @@ reload: # Reload Core
 	curl "http://localhost:8983/solr/admin/cores?action=RELOAD&core=solrbook"
 index: # Add Index
 	curl "http://localhost:8983/solr/solrbook/update?commit=true" --data-binary @sample-books.json -H 'Content-Type: application/json; charset=utf8' -T "sample-books.json" -X POST
+update: # Update Index
+	curl "http://localhost:8983/solr/solrbook/update?commit=true" --data-binary @update.json -H 'Content-Type: application/json; charset=utf8' -T "update.json" -X POST

@@ -71,3 +71,8 @@ curl "http://localhost:8983/solr/admin/cores?action=RELOAD&core=solrbook"
 ```
 curl "http://localhost:8983/solr/solrbook/update?commit=true" --data-binary @sample-books.json -H 'Content-Type: application/json; charset=utf8' -T "sample-books.json" -X POST
 ```
+
+## インデックスの更新
+```
+curl "http://localhost:8983/solr/solrbook/update?commit=true" --data-binary @update.json -H 'Content-Type: application/json; charset=utf8' -T "update.json" -X POST
+```
