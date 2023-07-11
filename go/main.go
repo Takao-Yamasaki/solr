@@ -21,5 +21,16 @@ func main() {
 		return
 	}
 
-	fmt.Printf("You choose No.%d %q\n", idx, result)
+	switch result {
+	case "add":
+		fmt.Printf("You choose No.%d %v\n", idx, "add")
+	case "update":
+		fmt.Printf("You choose No.%d %v\n", idx, "update")
+	case "delete":
+		fmt.Printf("You choose No.%d %v\n", idx, "delete")
+	case "nocommit":
+		fmt.Printf("You choose No.%d %v\n", idx, "nocommit")
+	case "rollback":
+		fmt.Printf("You choose No.%d %v\n", idx, "rollback")
+	}
 }
