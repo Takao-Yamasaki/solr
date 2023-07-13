@@ -1,7 +1,12 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"io/ioutil"
+	"net/http"
+	"os"
+
 	"github.com/manifoldco/promptui"
 	"github.com/vanng822/go-solr/solr"
 )
@@ -11,7 +16,7 @@ func main() {
 		// 選択肢のタイトル
 		Label: "Select Solr Command",
 		// 選択肢の配列
-		Items: []string{"add", "update", "delete", "nocommit", "rollback"},
+		Items: []string{"add", "update", "delete", "nocommit", "rollback", "search"},
 	}
 
 	// 入力を受け取る
@@ -22,24 +27,79 @@ func main() {
 		return
 	}
 
+	// Solrインターフェースを生成
+	si, _ := solr.NewSolrInterface("http://solr:8983/solr", "solrbook")
+
 	switch result {
 	case "add":
 		fmt.Printf("You choose No.%d %v\n", idx, "add")
+		// ライブラリを使っていない
+		// jsonはgo配下に持ってくること
+		solrUrl := "http://solr:8983/solr/solrbook/update?commit=true"
+		fileName := "sample-books.json"
+
+		// ファイルを読み取り
+		file, err := os.Open(fileName)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		defer file.Close()
+
+		// ファイルの内容を取得
+		fileContents, err := ioutil.ReadAll(file)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		// POSTリクエストの作成
+		request, err := http.NewRequest("POST", solrUrl, bytes.NewBuffer(fileContents))
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		// ヘッダーの設定
+		request.Header.Set("Content-Type", "application/json; charset=utf8")
+
+		// HTTPクライアントの作成
+		client := &http.Client{}
+
+		// リクエストを送信
+		response, err := client.Do(request)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		defer response.Body.Close()
+
+		// TODO: レスポンスの内容を取得
+		// TODO: レスポンスの表示
+
 	case "update":
 		fmt.Printf("You choose No.%d %v\n", idx, "update")
-	 case "delete":
-		fmt.Printf("You choose No.%d %v\n", idx, "delete")
+	case "deleteAll":
+		fmt.Printf("You choose No.%d %v\n", idx, "deleteAll")
+		r, err := si.DeleteAll()
+		if err != nil {
+			fmt.Println(err)
+		}
+		if r.Success {
+			fmt.Println("Success!!")
+		}
 	case "nocommit":
 		fmt.Printf("You choose No.%d %v\n", idx, "nocommit")
 	case "rollback":
 		fmt.Printf("You choose No.%d %v\n", idx, "rollback")
-	case "search":
-		fmt.Printf("You choose No.%d %v\n", idx, "search")
-		si, _ := solr.NewSolrInterface("http://localhost:8983/solr", "solrbook")
+	case "searchAll":
+		fmt.Printf("You choose No.%d %v\n", idx, "searchAll")
 		query := solr.NewQuery()
 		query.Q("*:*")
 		s := si.Search(query)
-		r, _ := s.Result(nil)
+		r, err := s.Result(nil)
+		if err != nil {
+			fmt.Println(err)
+		}
 		fmt.Println(r.Results.Docs)
 	}
 }
