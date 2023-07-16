@@ -7,7 +7,7 @@ services:
     tty: true
     volumes:
       - ./go:/go/src/workspace
-    # working_dir: /go/src/workspace
+    working_dir: /go/src/workspace
   solr:
     # Used in project solr:7.3.1
     build: ./solr
@@ -15,5 +15,3 @@ services:
       - "8983:8983"
     volumes:
       - ./solr:/workspace:cashed
-# volumes:
-  # data:
