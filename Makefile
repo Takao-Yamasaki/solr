@@ -1,4 +1,3 @@
-# TODO: ヘルプを実装すること
 # TODO: GoコンテナからのAPI実装
 .PHONY: help setup up build solr go down ps rm core rmcore reload add update delete nocommit rollback
 

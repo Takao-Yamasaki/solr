@@ -16,7 +16,7 @@ func main() {
 		// 選択肢のタイトル
 		Label: "Select Solr Command",
 		// 選択肢の配列
-		Items: []string{"add", "update", "delete", "nocommit", "rollback", "search"},
+		Items: []string{"add", "update", "deleteAll", "nocommit", "rollback", "searchAll"},
 	}
 
 	// 入力を受け取る
@@ -73,12 +73,15 @@ func main() {
 		}
 		defer response.Body.Close()
 
+		// TODO: 実装すること
 		// TODO: レスポンスの内容を取得
 		// TODO: レスポンスの表示
 
 	case "update":
+		// TODO: 実装すること
 		fmt.Printf("You choose No.%d %v\n", idx, "update")
 	case "deleteAll":
+		// NOTE: 実装済み
 		fmt.Printf("You choose No.%d %v\n", idx, "deleteAll")
 		r, err := si.DeleteAll()
 		if err != nil {
@@ -87,11 +90,15 @@ func main() {
 		if r.Success {
 			fmt.Println("Success!!")
 		}
+		fmt.Printf("End: No.%d %v\n", idx, "deleteAll")
 	case "nocommit":
+		// TODO: 実装すること
 		fmt.Printf("You choose No.%d %v\n", idx, "nocommit")
 	case "rollback":
+		// TODO: 実装すること
 		fmt.Printf("You choose No.%d %v\n", idx, "rollback")
 	case "searchAll":
+		// NOTE: 実装済み
 		fmt.Printf("You choose No.%d %v\n", idx, "searchAll")
 		query := solr.NewQuery()
 		query.Q("*:*")
@@ -101,5 +108,6 @@ func main() {
 			fmt.Println(err)
 		}
 		fmt.Println(r.Results.Docs)
+		fmt.Printf("End: No.%d %v\n", idx, "searchAll")
 	}
 }
