@@ -15,3 +15,4 @@ services:
       - "8983:8983"
     volumes:
       - ./solr:/workspace:cashed
+      - ./solr-data:/var/solr
