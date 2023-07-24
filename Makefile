@@ -7,6 +7,7 @@ help: ## Show Help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
 		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 setup: core reload add ## SetUp Index
+setup-go : core reload ## SetUp for Go App
 up: ## Start Solr
 	@docker-compose up -d
 build: ## Rebuild Solr
@@ -19,8 +20,6 @@ down: ## Stop Solr
 	@docker-compose down
 ps: ## Status Check Solr Container
 	@docker-compose ps
-rm: ## Remove Solr volume
-	@docker volume rm solr_data
 core: ## Create solrbook Core & SetUp Schema
 	@docker-compose exec solr bash -c "\
 		bin/solr create_core -c solrbook -d basic_configs && \

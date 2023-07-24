@@ -38,7 +38,7 @@ make up
 ### 2.書籍データ用コアの作成とスキーマ定義ファイルのセットアップ
 - ホスト側で実行
 ```
-make core
+make setup
 ```
 
 ## 3.`sample-books.json`の登録(インデクシング)
