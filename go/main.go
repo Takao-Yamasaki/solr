@@ -33,6 +33,7 @@ func main() {
 
 	switch result {
 	case "add":
+		// NOTE: 実装済み
 		fmt.Printf("You choose No.%d %v\n", idx, "add")
 		fileName := "sample-books.json"
 
@@ -66,10 +67,43 @@ func main() {
 		if res.Success {
 			fmt.Printf("Commit: %v\n", res.Success)
 		}
-
+		fmt.Printf("End: No.%d %v\n", idx, "add")
 	case "update":
-		// TODO: 実装すること
+		// NOTE: 実装済み
 		fmt.Printf("You choose No.%d %v\n", idx, "update")
+		fileName := "update.json"
+
+		// ファイルからjsonデータを読み込む
+		fileBytes, err := ioutil.ReadFile(fileName)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		// 読み込んだデータをDocument型のスライスに格納。json形式のデータをgoの構造体に読み込む
+		var documents []solr.Document
+		err = json.Unmarshal(fileBytes, &documents)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		// ドキュメントの追加
+		res, err := si.Add(documents, 100, &url.Values{})
+		if err != nil {
+			log.Fatal(err)
+		}
+		if res.Success {
+			fmt.Printf("Document Add: %v\n", res.Success)
+		}
+
+		// コミット処理
+		res, err = si.Commit()
+		if err != nil {
+			log.Fatal(err)
+		}
+		if res.Success {
+			fmt.Printf("Commit: %v\n", res.Success)
+		}
+		fmt.Printf("End: No.%d %v\n", idx, "update")
 	case "deleteAll":
 		// NOTE: 実装済み
 		fmt.Printf("You choose No.%d %v\n", idx, "deleteAll")

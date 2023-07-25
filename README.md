@@ -30,6 +30,11 @@ make down
 ```
 http://localhost:8983/solr/#/
 ```
+- 検索方法
+- [solrbook][Query][q]に次のように入力して、[Execute Query]を押下
+```
+title:"Apache Solr 入門"
+```
 
 - サンプル検索アプリケーション: SolritasのURL
 ```
