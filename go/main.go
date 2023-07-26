@@ -141,11 +141,17 @@ func main() {
 		if res.Success {
 			fmt.Printf("Document Add: %v\n", res.Success)
 		}
-
 		fmt.Printf("End: No.%d %v\n", idx, "nocommit")
 	case "rollback":
-		// TODO: 実装すること
 		fmt.Printf("You choose No.%d %v\n", idx, "rollback")
+		res, err := si.Rollback()
+		if err != nil {
+			log.Printf("Failed to Rollback: %v", err)
+		}
+		if res.Success {
+			fmt.Printf("Rollback: %v\n", res.Success)
+		}
+		fmt.Printf("End: No.%d %v\n", idx, "rollback")
 	case "searchAll":
 		// NOTE: 実装済み
 		fmt.Printf("You choose No.%d %v\n", idx, "searchAll")
